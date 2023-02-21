@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Navbar from './layouts/Navbar'
+import Home from './pages/Home'
+import Login from './auth/Login';
+import Register from './auth/Register';
+import SingleQuote from './components/SingleQuote';
+import Profile from './pages/Profile';
+import Messages from './pages/Messages';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className='font-mynerve'>
+        <div>
+          <Navbar />
+        </div>
+        <Routes>
+          <Route path='/' exact element={<Home />} />
+          <Route path='/login' exact element={<Login />} />
+          <Route path='/register' exact element={<Register />} />
+          <Route path='/quote' exact element={<SingleQuote />} />
+
+
+          <Route path='/profile' exact element={<Profile />} />
+          <Route path='/messages' exact element={<Messages />} />
+
+
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
