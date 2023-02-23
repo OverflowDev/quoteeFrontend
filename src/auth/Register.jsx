@@ -18,7 +18,7 @@ function Register() {
                                     className="border rounded w-full py-2 px-3 text-gray-800" 
                                     type="text"
                                     name="name" 
-                                    value="" 
+                                    // value="" 
                                     placeholder="Name"
                                 />
                             </div>
@@ -28,7 +28,7 @@ function Register() {
                                     className="border rounded w-full py-2 px-3 text-gray-800" 
                                     type="email"
                                     name="email" 
-                                    value="" 
+                                    // value="" 
                                     placeholder="Email"
                                 />
                             </div>
@@ -38,7 +38,7 @@ function Register() {
                                     className=" border rounded w-full py-2 px-3 text-gray-800" 
                                     type="text"
                                     name="username" 
-                                    value=""
+                                    // value=""
                                     placeholder="Username" 
                                 />
                             </div>
@@ -48,7 +48,7 @@ function Register() {
                                     className=" border rounded w-full py-2 px-3 text-gray-800" 
                                     type="password"
                                     name="password" 
-                                    value=""
+                                    // value=""
                                     placeholder="password" 
                                 />
                             </div>
@@ -58,7 +58,7 @@ function Register() {
                                     className=" border rounded w-full py-2 px-3 text-gray-800" 
                                     type="password"
                                     name="confirmPassword" 
-                                    value=""
+                                    // value=""
                                     placeholder="Confirm Password" 
                                 />
                             </div>

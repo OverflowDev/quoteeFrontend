@@ -4,3 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
+
+
+@layer components {
+    .btn {
+        @apply hover:text-purple-500 active:-translate-y-1 transition
+    }
+}

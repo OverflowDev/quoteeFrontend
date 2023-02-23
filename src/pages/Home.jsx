@@ -2,6 +2,7 @@ import Sidebar from '../layouts/Sidebar'
 
 import PostQuote from '../components/PostQuote';
 import Quotes from '../components/Quotes';
+import MobileBar from '../layouts/MobileBar';
 
 function Home() {
 
@@ -16,6 +17,11 @@ function Home() {
         <PostQuote />
         <Quotes />
       </div>
+      {/* tailwind fix a navbar to the bottom like twitter */}
+      {/* <div class="fixed bottom-0 left-0 right-0 ">
+        <MobileBar />
+      </div> */}
+
     </div>
   )
 }

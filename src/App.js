@@ -7,6 +7,7 @@ import Register from './auth/Register';
 import SingleQuote from './components/SingleQuote';
 import Profile from './pages/Profile';
 import Messages from './pages/Messages';
+import MobileBar from './layouts/MobileBar';
 
 function App() {
   return (
@@ -24,9 +25,13 @@ function App() {
 
           <Route path='/profile' exact element={<Profile />} />
           <Route path='/messages' exact element={<Messages />} />
-
-
+          
         </Routes>
+
+        <div class="fixed bottom-0 left-0 right-0 ">
+          <MobileBar />
+        </div>
+        
       </div>
     </Router>
   );
