@@ -14,31 +14,31 @@ function MobileBar() {
       <Link>
         <div className='flex flex-col items-center text-gray-500'>
           <MdOutlineDashboard className='h-6 w-6 mb-1' />
-          <span class="text-xs">Home</span>
+          <span className="text-xs">Home</span>
         </div>
       </Link>
       <Link>
         <div className='flex flex-col items-center text-gray-500'>
           <AiOutlineHeart className='h-6 w-6 mb-1' />
-          <span class="text-xs">Saved</span>
+          <span className="text-xs">Saved</span>
         </div>
       </Link>
       <Link>
         <div className='flex flex-col items-center text-gray-500'>
           <AiOutlineUser className='h-6 w-6 mb-1' />
-          <span class="text-xs">User</span>
+          <span className="text-xs">User</span>
         </div>
       </Link>
       <Link>
         <div className='flex flex-col items-center text-gray-500'>
           <RiSettings4Line className='h-6 w-6 mb-1' />
-          <span class="text-xs">Settings</span>
+          <span className="text-xs">Settings</span>
         </div>
       </Link>
       <Link>
         <div className='flex flex-col items-center text-gray-500'>
           <FiMessageSquare className='h-6 w-6 mb-1' />
-          <span class="text-xs">Messages</span>
+          <span className="text-xs">Messages</span>
         </div>
       </Link>
     </div>

@@ -1,10 +1,18 @@
+import { useContext } from 'react';
+
 import Sidebar from '../layouts/Sidebar'
 
 import PostQuote from '../components/PostQuote';
 import Quotes from '../components/Quotes';
-import MobileBar from '../layouts/MobileBar';
+import AuthContext from '../context/AuthContext';
 
 function Home() {
+
+  const {user} = useContext(AuthContext)
+
+  // const {Loading, error, data} = useQuery(GET_ALL_QUOTES, {
+  //   variables: {}
+  // })
 
   return (
     <div className='flex md:px-24 px-6 mt-4 font-quicksand'>
@@ -14,13 +22,9 @@ function Home() {
       </div>
       {/* Main  */}
       <div className='md:ml-72 w-full'>
-        <PostQuote />
-        <Quotes />
+        {user && <PostQuote />}
+        <Quotes  />
       </div>
-      {/* tailwind fix a navbar to the bottom like twitter */}
-      {/* <div class="fixed bottom-0 left-0 right-0 ">
-        <MobileBar />
-      </div> */}
 
     </div>
   )
