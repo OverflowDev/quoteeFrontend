@@ -14,3 +14,18 @@ export const SUBMIT_COMMENT_MUTATION = gql`
         }
     }
 `
+
+export const DELETE_COMMENT_MUTATION = gql`
+    mutation deleteComment($quoteId: ID!, $commentId: ID!){
+        deleteComment(quoteId: $quoteId, commentId: $commentId) {
+            id
+            comments{
+                id
+                body
+                username
+                createdAt
+            }
+            commentCount
+        }
+    }
+`

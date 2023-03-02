@@ -2,6 +2,8 @@ import {useState, useRef} from 'react'
 
 import { useMutation } from '@apollo/client'
 
+import { toast } from 'react-hot-toast'
+
 import {SUBMIT_COMMENT_MUTATION } from '../graphql/commentQueries'
 import { useParams } from 'react-router-dom'
 
@@ -26,13 +28,21 @@ function CreateComments() {
       update() {
         setComment('')
         commentInputRef.current.blur()
+      }, 
+      onCompleted(){
+        toast.success("Comment successful!")
       }
     })
+
+    const handleComment = (e) => {
+      e.preventDefault()
+      handleCommentSubmit()
+    }
 
 
   return (
     <div>
-        <form className="mb-4 w-full md:w-2/4">
+        <form onSubmit={handleComment} className="mb-4 w-full md:w-2/4">
         {/* body  */}
         <textarea
           ref={commentInputRef}
@@ -47,7 +57,7 @@ function CreateComments() {
         <div className="flex justify-end mt-2">
           <button 
             type='submit'
-            onClick={handleCommentSubmit}
+            // onClick={handleCommentSubmit}
             disabled={comment.trim() === ''}
             className="flex items-center py-2 px-4 rounded-lg text-sm bg-lens/90 text-white shadow-lg"
           >

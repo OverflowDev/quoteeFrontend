@@ -1,8 +1,16 @@
-import React from 'react'
+import {useState} from 'react'
+// import { useNavigate } from 'react-router-dom';
+import moment from 'moment/moment';
+
+import DeleteButton from './DeleteButton';
 
 import {AiFillDelete} from 'react-icons/ai'
 
-function Comments({user, comment}) {
+function Comments({user, comment, quoteId}) {
+    // const navigate = useNavigate()
+
+    const [showDeleteButton, setShowDeleteButton] = useState(false)
+    const handleOnClose = () => setShowDeleteButton(false)
 
     const {
         id,
@@ -10,6 +18,11 @@ function Comments({user, comment}) {
         body,
         createdAt
     } = comment
+
+    
+    // function deleteQuoteCallback() {
+    //     navigate('/')
+    // }
 
   return (
     <div className=''>
@@ -22,10 +35,10 @@ function Comments({user, comment}) {
                     <div className="text-gray-600 text-sm font-semibold uppercase">{username}</div>
                     <div className="flex w-full mt-1">
                         <div className="text-blue-700 font-base text-xs mr-1 cursor-pointer">
-                            SEO
+                            QUOTEER
                         </div>
                         <div className="text-gray-600 font-thin text-xs">
-                            • 30 seconds ago
+                            • {moment(createdAt).fromNow(true)}
                         </div>
                     </div>
                 </div>
@@ -33,21 +46,23 @@ function Comments({user, comment}) {
             {/* body  */}
             <div>
                 <h1>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci eos dolores nemo deleniti optio ipsam mollitia eius, iste consectetur cupiditate sunt assumenda rem laborum, expedita illum possimus corrupti porro natus?
+                    {body}
                 </h1>
             </div>
             {/* Buttons  */}
             <div className='flex items-center justify-end mt-3 space-x-3'>
                 {/* delete  */}
-                {/* {user && user.username === username && ( */}
-                    <div>
-                        <button className='flex items-center space-x-2 text-red-600'>
-                            <AiFillDelete size={18} className='' />
-                        </button>
-                    </div>
-                {/* )} */}
+                {user && user.username === username && 
+                    <button 
+                        onClick={() => setShowDeleteButton(true)}
+                        className='flex items-center space-x-2 text-red-600 py-2 px-3 border rounded bg-gray-300 hover:bg-gray-200'>
+                        <AiFillDelete size={18} className='' />
+                    </button>
+                }
             </div>
         </div>
+        {/* Delete button  */}
+        <DeleteButton onClose={handleOnClose} visible={showDeleteButton} commentId={id} quoteId={quoteId} />
     </div>
   )
 }

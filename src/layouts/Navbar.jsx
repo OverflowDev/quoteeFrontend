@@ -1,5 +1,6 @@
 import {useContext} from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 import AuthContext from '../context/AuthContext'
 
@@ -10,7 +11,8 @@ function Navbar() {
   const {user, logout} = useContext(AuthContext)
 
   const handleLogout = () => {
-    logout()
+    logout();
+    toast.success("Logged out successfully!");
   }
 
   return (
@@ -32,14 +34,16 @@ function Navbar() {
           </div>
         ) : (
           <div className='flex items-center space-x-4'>
-            <div className='flex items-center space-x-1'>
-              {/* Image  */}
-              <img src="https://images.pexels.com/photos/15386480/pexels-photo-15386480.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="quoteimage" className='object-cover object-contain h-8 w-8 rounded-full' />
-              <div className='flex flex-col'>
-                <h1 className='text-md tracking-widest font-semibold'>Overflow</h1>
-                <h1 className='text-xs tracking-widest'>Overflow</h1>
+            <Link to='/profile'>
+              <div className='flex items-center space-x-1'>
+                {/* Image  */}
+                <img src="https://images.pexels.com/photos/15386480/pexels-photo-15386480.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="quoteimage" className='object-cover object-contain h-8 w-8 rounded-full' />
+                <div className='flex flex-col'>
+                  <h1 className='text-md tracking-widest font-semibold'>{user.name}</h1>
+                  <h1 className='text-xs tracking-widest'>{user.username}</h1>
+                </div>
               </div>
-            </div>
+            </Link>
             <button 
               onClick={handleLogout}
               className='py-2 px-3 bg-lime-50 rounded-md border border-lime-700 flex items-center space-x-3'

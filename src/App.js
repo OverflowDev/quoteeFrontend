@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink  } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context'
+
+import { Toaster } from 'react-hot-toast';
 
 import Navbar from './layouts/Navbar'
 import Home from './pages/Home'
@@ -12,16 +15,56 @@ import MobileBar from './layouts/MobileBar';
 
 import { AuthProvider } from './context/AuthContext';
 
+import AuthRoute from './util/AuthRoute';
+import NotFound from './pages/NotFound';
+// import ProtectedRoute from './util/ProtectedRoute';
+
 function App() {
 
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
+  const httpLink = createHttpLink({
     uri: 'http://localhost:4000/quotee'
+  })
+
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('jwtToken');
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      }
+    }
+  })
+
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          getQuotes: {
+            keyArgs: false,
+            merge(existing = [], incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    },
+  })
+
+  const client = new ApolloClient({
+    // cache: new InMemoryCache(),
+    // uri: 'http://localhost:4000/quotee'
+    cache,
+    link: authLink.concat(httpLink)
   })
 
   return (
     <AuthProvider>
       <ApolloProvider client={client}>
+        <Toaster toastOptions={{ 
+          duration: 4000
+         }} />
         <Router>
           <div className='font-mynerve'>
             <div>
@@ -30,13 +73,32 @@ function App() {
             <div className='pb-16'>
               <Routes>
                 <Route path='/' exact element={<Home />} />
-                <Route path='/login' exact element={<Login />} />
-                <Route path='/register' exact element={<Register />} />
+                {/* <Route path='/login' exact element={<Login />} /> */}
+                <Route 
+                  path='/login' 
+                  exact 
+                  element={
+                    <AuthRoute>
+                        <Login />
+                    </AuthRoute>
+                  } 
+                />
+                <Route 
+                  path='/register' 
+                  exact 
+                  element={
+                    <AuthRoute>
+                        <Register />
+                    </AuthRoute>
+                  } 
+                />
                 <Route path='/quote/:quoteId' exact element={<SingleQuote />} />
 
 
                 <Route path='/profile' exact element={<Profile />} />
                 <Route path='/messages' exact element={<Messages />} />
+
+                <Route path='/*' element={<NotFound />} />
                 
               </Routes>
             </div>

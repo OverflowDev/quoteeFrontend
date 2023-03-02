@@ -1,4 +1,9 @@
 import { useContext } from 'react';
+import { Triangle } from  'react-loader-spinner' 
+
+import { useQuery } from '@apollo/client';
+
+import {FETCH_QUOTES_QUERY} from '../graphql/quoteQueries'
 
 import Sidebar from '../layouts/Sidebar'
 
@@ -10,9 +15,9 @@ function Home() {
 
   const {user} = useContext(AuthContext)
 
-  // const {Loading, error, data} = useQuery(GET_ALL_QUOTES, {
-  //   variables: {}
-  // })
+  const {data, loading, error} = useQuery(FETCH_QUOTES_QUERY)
+
+  if (error) console.log(error)
 
   return (
     <div className='flex md:px-24 px-6 mt-4 font-quicksand'>
@@ -23,7 +28,25 @@ function Home() {
       {/* Main  */}
       <div className='md:ml-72 w-full'>
         {user && <PostQuote />}
-        <Quotes  />
+        {loading ? (
+          <div className='flex items-center justify-center'>
+            <Triangle
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="triangle-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+            />
+          </div>
+        ): (
+          <div>
+            {data?.getQuotes.map((quote) => (
+              <Quotes key={quote.id} quote={quote}  />
+            ))}
+          </div>
+        )}
       </div>
 
     </div>

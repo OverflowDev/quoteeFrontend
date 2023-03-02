@@ -1,68 +1,64 @@
 import { createContext, useReducer, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
+// import { toast } from "react-hot-toast";
 
-import authReducer from './AuthReducer'
+// import authReducer from './AuthReducer'
 
 const AuthContext = createContext()
 
 
 export const AuthProvider = ({children}) => {
-    // useEffect(() => {
-    //   const storedToken = localStorage.getItem('jwtToken')
-    //   if(storedToken) {
-    //     const decodedToken = jwtDecode(storedToken)
-    //     dispatch({
-    //         type: "LOGIN_SUCCESS",
-    //         payload: decodedToken
-    //     })
-    //   } else {
-    //     dispatch({
-    //         type: "LOGOUT"
-    //     })
-    //   }
-    // }, [])
-    const [user, setUser] = useState(null)
 
-    const login = (token) => {
-        const decodedToken = jwtDecode(token);
-        setUser(decodedToken);
-        localStorage.setItem('jwtToken', token);
-      };
+  // const token = localStorage.getItem("jwtToken")
+
+  // const initialState = {
+  //   // user: null
+  //   user: token ? jwtDecode(token) : null
+  // }
+
+  //   const [state, dispatch] = useReducer(authReducer, initialState)
+
+  //   const login = (token) => {
+  //       const decodedToken = jwtDecode(token);
+  //       dispatch({
+  //         type: 'LOGIN_SUCCESS',
+  //         payload: decodedToken
+  //       })
+  //       localStorage.setItem('jwtToken', token);
+  //     };
     
-      const logout = () => {
-        setUser(null);
-        localStorage.removeItem('jwtToken');
-      };
+  //     const logout = () => {
+  //       dispatch({
+  //         type: "LOGOUT"
+  //       })
+  //       localStorage.removeItem('jwtToken');
+  //     };
+  const [user, setUser] = useState(null);
 
-      useEffect(() => {
-        const storedToken = localStorage.getItem('jwtToken');
-        if (storedToken) {
-          const decodedToken = jwtDecode(storedToken);
-          setUser(decodedToken);
-        }
-      }, [])
+  const login = (token) => {
+    const decodedToken = jwtDecode(token);
+    setUser(decodedToken);
+    localStorage.setItem("jwtToken", token);
+  };
 
-    // const initialState = {
-    //     user: null
-    // }
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("jwtToken")
+    // toast.success("Logout!")
+  };
 
-    // const [state, dispatch] = useReducer(useReducer, initialState)
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        localStorage.removeItem("jwtToken");
+      } else {
+        setUser(decodedToken);
+      }
+    }
+  }, []);
 
-    // const login = (token) => {
-    //     const decodedToken = jwtDecode(token)
-    //     dispatch({
-    //         type: "LOGIN_SUCCESS",
-    //         payload: decodedToken
-    //     })
-    //     localStorage.setItem('jwtToken', token)
-    // }
-
-    // const logout = () => {
-    //     dispatch({
-    //         type: "LOGOUT"
-    //     })
-    //     localStorage.removeItem('jwtToken')
-    // }
 
 
 return (
