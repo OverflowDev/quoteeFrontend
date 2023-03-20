@@ -42,7 +42,7 @@ function Home() {
           </div>
         ): (
           <div>
-            {data ? (<div>
+            {data?.getQuotes > 0 ? (<div>
               {data?.getQuotes.map((quote) => (
                 <Quotes key={quote.id} quote={quote}  />
               ))}
