@@ -10,7 +10,7 @@ function Messages() {
     </div>
     {/* Main  */}
     <div className='md:ml-72 w-full'>
-        Profile
+        Messages coming soon
     </div>
 </div>
   )
