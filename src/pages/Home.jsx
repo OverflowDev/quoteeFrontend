@@ -42,9 +42,16 @@ function Home() {
           </div>
         ): (
           <div>
-            {data?.getQuotes.map((quote) => (
-              <Quotes key={quote.id} quote={quote}  />
-            ))}
+            {data ? (<div>
+              {data?.getQuotes.map((quote) => (
+                <Quotes key={quote.id} quote={quote}  />
+              ))}
+            </div>
+            ) : (
+              <div>
+                No quote at the moment
+              </div>
+            )}
           </div>
         )}
       </div>
