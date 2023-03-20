@@ -22,7 +22,7 @@ import NotFound from './pages/NotFound';
 function App() {
 
   const httpLink = createHttpLink({
-    uri: 'http://localhost:4000/quotee'
+    uri: 'https://quotee-server.vercel.app/quotee'
   })
 
   const authLink = setContext((_, { headers }) => {
