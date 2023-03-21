@@ -25,9 +25,14 @@ function Login() {
     })
 
     const onChange = (e) => {
-        setFormData({
+        // setFormData({
+        //     ...formData,
+        //     [e.target.name]: e.target.value
+        // })
+        const { name, value } = e.target
+            setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [name]: name === 'username' ? value.toLowerCase() : value
         })
     }
      const [loginUSer, { loading }] = useMutation(LOGIN_USER, {
