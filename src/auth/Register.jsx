@@ -25,10 +25,18 @@ function Register() {
         confirmPassword: '',
     })
     
+    // const onChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value
+    //     })
+    // }
+
     const onChange = (e) => {
+        const { name, value } = e.target
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
+          ...formData,
+          [name]: name === 'username' ? value.toLowerCase() : value
         })
     }
 
